@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -9,7 +10,9 @@
   <!-- Fonts (may fall back to system fonts if offline) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +24,7 @@
             display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
             body: ['Manrope', 'system-ui', 'sans-serif'],
           },
-          colors: { void: '#07040d', orchid: '#a78bfa', lilac: '#e9ddff' },
+          colors: {void: '#07040d', orchid: '#a78bfa', lilac: '#e9ddff'},
         },
       },
     };
@@ -29,201 +32,357 @@
 
   <!-- Custom CSS (glow, animations, responsive helpers) -->
   <style>
-/* ===== CUSTOM CSS ===== */
-/* =========================================================
+    /* ===== CUSTOM CSS ===== */
+    /* =========================================================
    Custom CSS — glow, animation and responsive helpers
    ========================================================= */
 
-:root {
-  --void: #07040d;
-  --purple-core: #7c3aed;
-  --purple-soft: #a78bfa;
-}
+    :root {
+      --void: #07040d;
+      --purple-core: #7c3aed;
+      --purple-soft: #a78bfa;
+    }
 
-html {
-  background: var(--void);
-  -webkit-text-size-adjust: 100%;
-}
-body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
+    html {
+      background: var(--void);
+      -webkit-text-size-adjust: 100%;
+    }
 
-/* Native `hidden` must always win (works even if Tailwind fails to load) */
-[hidden] { display: none !important; }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
 
-/* ---------- Background ---------- */
-.bg-gradient {
-  position: fixed; inset: 0; z-index: -3; pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(76, 29, 149, 0.35), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(46, 16, 101, 0.45), transparent 70%),
-    linear-gradient(180deg, #0a0514 0%, #07040d 100%);
-}
-.bg-orb {
-  position: fixed; z-index: -2; border-radius: 9999px;
-  filter: blur(90px); pointer-events: none;
-  animation: drift 18s ease-in-out infinite alternate;
-}
-.bg-orb--one { top: -10%; left: -8%; width: min(28rem, 70vw); height: min(28rem, 70vw); background: rgba(124, 58, 237, 0.18); }
-.bg-orb--two { bottom: -12%; right: -8%; width: min(32rem, 80vw); height: min(32rem, 80vw); background: rgba(91, 33, 182, 0.2); animation-delay: -9s; }
-@keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(40px, 30px) scale(1.12); }
-}
+    /* Native `hidden` must always win (works even if Tailwind fails to load) */
+    [hidden] {
+      display: none !important;
+    }
 
-#stars {
-  position: fixed; inset: 0; z-index: -1;
-  width: 100%; height: 100%; pointer-events: none; /* never blocks clicks */
-}
+    /* ---------- Background ---------- */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(76, 29, 149, 0.35), transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(46, 16, 101, 0.45), transparent 70%),
+        linear-gradient(180deg, #0a0514 0%, #07040d 100%);
+    }
 
-/* ---------- Page layout ---------- */
-.page {
-  position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: center;
-  min-height: 100vh; min-height: 100dvh;
-  padding:
-    max(1rem, env(safe-area-inset-top))
-    max(1rem, env(safe-area-inset-right))
-    max(1rem, env(safe-area-inset-bottom))
-    max(1rem, env(safe-area-inset-left));
-}
+    .bg-orb {
+      position: fixed;
+      z-index: -2;
+      border-radius: 9999px;
+      filter: blur(90px);
+      pointer-events: none;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
 
-/* ---------- Card ---------- */
-.card {
-  width: 100%;
-  max-width: 38rem;
-  text-align: center;
-  border-radius: clamp(1.5rem, 4vw, 2rem);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  background: rgba(14, 7, 24, 0.6);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  padding: clamp(2rem, 7vw, 4rem) clamp(1.25rem, 6vw, 3.5rem);
-  box-shadow:
-    0 0 0 1px rgba(167, 139, 250, 0.05) inset,
-    0 0 60px rgba(124, 58, 237, 0.18),
-    0 30px 80px rgba(0, 0, 0, 0.6);
-}
-.card--opened { animation: card-glow 5s ease-in-out infinite; }
-@keyframes card-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 1px rgba(167,139,250,.05) inset, 0 0 60px rgba(124,58,237,.18), 0 30px 80px rgba(0,0,0,.6);
-    border-color: rgba(167, 139, 250, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 1px rgba(167,139,250,.1) inset, 0 0 90px rgba(124,58,237,.35), 0 30px 80px rgba(0,0,0,.6);
-    border-color: rgba(167, 139, 250, 0.38);
-  }
-}
+    .bg-orb--one {
+      top: -10%;
+      left: -8%;
+      width: min(28rem, 70vw);
+      height: min(28rem, 70vw);
+      background: rgba(124, 58, 237, 0.18);
+    }
 
-/* ---------- Fluid typography (scales on every screen size) ---------- */
-.title-xl { font-size: clamp(2.5rem, 10.5vw, 4.75rem); line-height: 1.08; letter-spacing: -0.01em; }
-.title-lg { font-size: clamp(2.1rem, 8vw, 3.25rem);   line-height: 1.12; }
-.text-body { font-size: clamp(0.95rem, 2.6vw, 1.125rem); line-height: 1.8; }
+    .bg-orb--two {
+      bottom: -12%;
+      right: -8%;
+      width: min(32rem, 80vw);
+      height: min(32rem, 80vw);
+      background: rgba(91, 33, 182, 0.2);
+      animation-delay: -9s;
+    }
 
-.glow-title {
-  text-shadow: 0 0 18px rgba(167,139,250,.45), 0 0 48px rgba(124,58,237,.35);
-  overflow-wrap: anywhere;
-}
+    @keyframes drift {
+      from {
+        transform: translate(0, 0) scale(1);
+      }
 
-/* ---------- Button (big enough to tap on phones) ---------- */
-.open-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  margin-top: clamp(1.75rem, 5vw, 2.5rem);
-  width: 100%; max-width: 20rem; min-height: 3.25rem;
-  padding: 0.85rem 1.75rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(167, 139, 250, 0.4);
-  background: #2e1065;
-  background: linear-gradient(180deg, #3b1280, #240a52);
-  color: #e9ddff;
-  font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em;
-  cursor: pointer;
-  position: relative; z-index: 2;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
-}
-.glow-btn { box-shadow: 0 0 22px rgba(124,58,237,.4), 0 0 0 1px rgba(167,139,250,.08) inset; }
-.open-btn:active { transform: scale(0.97); }
-.open-btn:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 4px; }
-.open-btn:disabled { cursor: default; }
+      to {
+        transform: translate(40px, 30px) scale(1.12);
+      }
+    }
 
-/* Hover effect only on devices that actually have a mouse */
-@media (hover: hover) {
-  .open-btn:hover {
-    transform: scale(1.05);
-    background: linear-gradient(180deg, #4c1d95, #2e1065);
-    box-shadow: 0 0 36px rgba(139,92,246,.65), 0 0 0 1px rgba(167,139,250,.2) inset;
-  }
-}
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      /* never blocks clicks */
+    }
 
-/* ---------- Divider ---------- */
-.divider {
-  width: 9rem; height: 1px; position: relative;
-  background: linear-gradient(90deg, transparent, rgba(167,139,250,.7), transparent);
-}
-.divider span {
-  position: absolute; top: 50%; left: 50%;
-  width: 7px; height: 7px; background: var(--purple-soft);
-  transform: translate(-50%, -50%) rotate(45deg);
-  box-shadow: 0 0 12px rgba(167,139,250,.9);
-}
+    /* ---------- Page layout ---------- */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding:
+        max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    }
 
-/* ---------- Message box: fits ALL of your text ---------- */
-.message-body {
-  text-align: left;
-  max-height: min(52vh, 30rem);      /* fallback */
-  max-height: min(52dvh, 30rem);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-right: 0.75rem;
-  overflow-wrap: anywhere;
-  white-space: pre-line;             /* keeps your Enter / line breaks */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(167,139,250,.5) transparent;
-}
-.message-body p + p { margin-top: 1.1em; }
-.message-body::-webkit-scrollbar { width: 6px; }
-.message-body::-webkit-scrollbar-track { background: transparent; }
-.message-body::-webkit-scrollbar-thumb { background: rgba(167,139,250,.45); border-radius: 9999px; }
+    /* ---------- Card ---------- */
+    .card {
+      width: 100%;
+      max-width: 38rem;
+      text-align: center;
+      border-radius: clamp(1.5rem, 4vw, 2rem);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      background: rgba(14, 7, 24, 0.6);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      padding: clamp(2rem, 7vw, 4rem) clamp(1.25rem, 6vw, 3.5rem);
+      box-shadow:
+        0 0 0 1px rgba(167, 139, 250, 0.05) inset,
+        0 0 60px rgba(124, 58, 237, 0.18),
+        0 30px 80px rgba(0, 0, 0, 0.6);
+    }
 
-/* Short messages look nicer centered */
-.message-body.is-short { text-align: center; }
+    .card--opened {
+      animation: card-glow 5s ease-in-out infinite;
+    }
 
-/* ---------- Section transitions ---------- */
-.is-leaving { opacity: 0; transform: translateY(-14px); transition: opacity .6s ease, transform .6s ease; }
-.is-entering { animation: rise-in .9s cubic-bezier(.22,1,.36,1) both; }
-@keyframes rise-in {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-#message:focus { outline: none; }
+    @keyframes card-glow {
 
-/* ---------- Extra device tweaks ---------- */
-/* Very small phones (e.g. 320px) */
-@media (max-width: 360px) {
-  .card { padding-left: 1rem; padding-right: 1rem; }
-  .open-btn { font-size: 0.9rem; padding-left: 1rem; padding-right: 1rem; }
-}
-/* Phones in landscape: little vertical space */
-@media (max-height: 480px) and (orientation: landscape) {
-  .card { padding-top: 1.25rem; padding-bottom: 1.25rem; }
-  .title-xl { font-size: clamp(2rem, 7vh, 3rem); }
-  .message-body { max-height: 40vh; max-height: 40dvh; }
-}
-/* Large screens / TVs */
-@media (min-width: 1600px) {
-  .card { max-width: 44rem; }
-}
+      0%,
+      100% {
+        box-shadow: 0 0 0 1px rgba(167, 139, 250, .05) inset, 0 0 60px rgba(124, 58, 237, .18), 0 30px 80px rgba(0, 0, 0, .6);
+        border-color: rgba(167, 139, 250, 0.2);
+      }
 
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .bg-orb, .card--opened { animation: none; }
-  .is-leaving { transition: none; }
-  .is-entering { animation-duration: .01s; }
-  .open-btn { transition: none; }
-}
+      50% {
+        box-shadow: 0 0 0 1px rgba(167, 139, 250, .1) inset, 0 0 90px rgba(124, 58, 237, .35), 0 30px 80px rgba(0, 0, 0, .6);
+        border-color: rgba(167, 139, 250, 0.38);
+      }
+    }
 
-</style>
+    /* ---------- Fluid typography (scales on every screen size) ---------- */
+    .title-xl {
+      font-size: clamp(2.5rem, 10.5vw, 4.75rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+
+    .title-lg {
+      font-size: clamp(2.1rem, 8vw, 3.25rem);
+      line-height: 1.12;
+    }
+
+    .text-body {
+      font-size: clamp(0.95rem, 2.6vw, 1.125rem);
+      line-height: 1.8;
+    }
+
+    .glow-title {
+      text-shadow: 0 0 18px rgba(167, 139, 250, .45), 0 0 48px rgba(124, 58, 237, .35);
+      overflow-wrap: anywhere;
+    }
+
+    /* ---------- Button (big enough to tap on phones) ---------- */
+    .open-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: clamp(1.75rem, 5vw, 2.5rem);
+      width: 100%;
+      max-width: 20rem;
+      min-height: 3.25rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      background: #2e1065;
+      background: linear-gradient(180deg, #3b1280, #240a52);
+      color: #e9ddff;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+    }
+
+    .glow-btn {
+      box-shadow: 0 0 22px rgba(124, 58, 237, .4), 0 0 0 1px rgba(167, 139, 250, .08) inset;
+    }
+
+    .open-btn:active {
+      transform: scale(0.97);
+    }
+
+    .open-btn:focus-visible {
+      outline: 2px solid var(--purple-soft);
+      outline-offset: 4px;
+    }
+
+    .open-btn:disabled {
+      cursor: default;
+    }
+
+    /* Hover effect only on devices that actually have a mouse */
+    @media (hover: hover) {
+      .open-btn:hover {
+        transform: scale(1.05);
+        background: linear-gradient(180deg, #4c1d95, #2e1065);
+        box-shadow: 0 0 36px rgba(139, 92, 246, .65), 0 0 0 1px rgba(167, 139, 250, .2) inset;
+      }
+    }
+
+    /* ---------- Divider ---------- */
+    .divider {
+      width: 9rem;
+      height: 1px;
+      position: relative;
+      background: linear-gradient(90deg, transparent, rgba(167, 139, 250, .7), transparent);
+    }
+
+    .divider span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      background: var(--purple-soft);
+      transform: translate(-50%, -50%) rotate(45deg);
+      box-shadow: 0 0 12px rgba(167, 139, 250, .9);
+    }
+
+    /* ---------- Message box: fits ALL of your text ---------- */
+    .message-body {
+      text-align: left;
+      max-height: min(52vh, 30rem);
+      /* fallback */
+      max-height: min(52dvh, 30rem);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 0.75rem;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+      /* keeps your Enter / line breaks */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(167, 139, 250, .5) transparent;
+    }
+
+    .message-body p+p {
+      margin-top: 1.1em;
+    }
+
+    .message-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .message-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .message-body::-webkit-scrollbar-thumb {
+      background: rgba(167, 139, 250, .45);
+      border-radius: 9999px;
+    }
+
+    /* Short messages look nicer centered */
+    .message-body.is-short {
+      text-align: center;
+    }
+
+    /* ---------- Section transitions ---------- */
+    .is-leaving {
+      opacity: 0;
+      transform: translateY(-14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .is-entering {
+      animation: rise-in .9s cubic-bezier(.22, 1, .36, 1) both;
+    }
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #message:focus {
+      outline: none;
+    }
+
+    /* ---------- Extra device tweaks ---------- */
+    /* Very small phones (e.g. 320px) */
+    @media (max-width: 360px) {
+      .card {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .open-btn {
+        font-size: 0.9rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
+    /* Phones in landscape: little vertical space */
+    @media (max-height: 480px) and (orientation: landscape) {
+      .card {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+      }
+
+      .title-xl {
+        font-size: clamp(2rem, 7vh, 3rem);
+      }
+
+      .message-body {
+        max-height: 40vh;
+        max-height: 40dvh;
+      }
+    }
+
+    /* Large screens / TVs */
+    @media (min-width: 1600px) {
+      .card {
+        max-width: 44rem;
+      }
+    }
+
+    /* ---------- Reduced motion ---------- */
+    @media (prefers-reduced-motion: reduce) {
+
+      .bg-orb,
+      .card--opened {
+        animation: none;
+      }
+
+      .is-leaving {
+        transition: none;
+      }
+
+      .is-entering {
+        animation-duration: .01s;
+      }
+
+      .open-btn {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body class="relative bg-void font-body text-lilac antialiased">
@@ -249,7 +408,8 @@ body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
 
         <!-- ✏️ EDIT: short intro message -->
         <p id="intro-message" class="text-body mx-auto mt-5 max-w-md font-light text-lilac/70 sm:mt-6">
-          Today is your special day. I hope you have a beautiful birthday filled with happiness, laughter, and unforgettable moments.
+          Today is your special day. I hope you have a beautiful birthday filled with happiness, laughter, and
+          unforgettable moments.
         </p>
 
         <!-- ✏️ EDIT: button text -->
@@ -275,11 +435,27 @@ body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
              - Line breaks inside a <p> are kept, so you can press Enter. -->
         <div id="birthday-message" class="message-body text-body font-light text-lilac/85">
           <p>
-            Happy birthday RHEAAAAAAA VILLLA JASAAN! kanang wako ka remember ay na OCT 4 diay imong birthday abikog OCT 8 lala,
-            pero bitaw ay happy birthday diay HAHAHAHAH ampingi na imong kaugalingon oi naunsa naman sad ka nag niwang nasad ka,
-            atimana na imong kaugalingon haaa sunod atimana nana, kaon sa saktong oras ug tulog sa saktong oras aysig bilar.
-            if mo adto kag CDO unya enjoy your life po and goodluck saimong journey, ihope happy ka always if naay problema pwede raka mag saba saako 
-            pwede rapud kay KUAN HAHAHAHA pero bitaw HAPPPPPPPY BIRTHDAY dili naka minorHAHAHAHA yan lang HALONG KA PERMI!!!
+            🎂 Happy Birthday RHEAAAAAAA VILLLA JASAAN! 🎉
+
+          wWako ka remember na OCT 4 diay imong birthday, abi kog OCT 8 lala.
+
+            pero bitaw, happy birthday! 🎈
+            ampingi imong kaugalingon haaa.
+            kaon sa saktong oras ug tulog sa saktong oras.
+            aysig bilar pirmi. 💜
+
+            if moadto kag CDO, enjoy your life! 🎉
+            Goodluck sa imong journey.
+            I hope happy ka always. 🎂
+
+            if naay problema, pwede raka magsaba sa ako.
+            pwede rapud kay KUAN HAHAHAHA.
+
+            HAPPPPPPPY BIRTHDAY! 🎂🎉
+            dili naka minor HAHAHAHA.
+
+            HALONG KA PERMI! 💜🎈
+
           </p>
           <!-- <p>Second paragraph here...</p> -->
           <!-- <p>Third paragraph here...</p> -->
@@ -292,118 +468,119 @@ body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
       <footer class="mt-10 text-[0.7rem] tracking-wide text-lilac/30 sm:mt-12">
         FROM STEV 💜
       </footer>
-          <footer class="mt-10 text-[0.7rem] tracking-wide text-lilac/30 sm:mt-12">
-       OCT 3, 2026
+      <footer class="mt-10 text-[0.7rem] tracking-wide text-lilac/30 sm:mt-12">
+        OCT 3, 2026
       </footer>
     </article>
   </main>
 
   <script>
-// ===== JAVASCRIPT =====
-// =========================================================
-// 1) Reveal the birthday message
-// =========================================================
-const card    = document.getElementById('card');
-const intro   = document.getElementById('intro');
-const message = document.getElementById('message');
-const openBtn = document.getElementById('open-btn');
-const msgBody = document.getElementById('birthday-message');
+    // ===== JAVASCRIPT =====
+    // =========================================================
+    // 1) Reveal the birthday message
+    // =========================================================
+    const card = document.getElementById('card');
+    const intro = document.getElementById('intro');
+    const message = document.getElementById('message');
+    const openBtn = document.getElementById('open-btn');
+    const msgBody = document.getElementById('birthday-message');
 
-// Short messages are centered, long ones are left-aligned for easy reading
-if (msgBody.textContent.trim().length < 220) {
-  msgBody.classList.add('is-short');
-}
-
-let opened = false;
-
-function openMessage() {
-  if (opened) return;
-  opened = true;
-  openBtn.disabled = true;
-
-  // Step 1: fade the first section away
-  intro.classList.add('is-leaving');
-
-  // Step 2: after the fade, swap the sections
-  setTimeout(() => {
-    intro.hidden = true;
-    message.hidden = false;
-    message.classList.add('is-entering');
-
-    // Step 3: soft glow around the card + keep it in view on small screens
-    card.classList.add('card--opened');
-    message.focus({ preventScroll: true });
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 600);
-}
-
-openBtn.addEventListener('click', openMessage);
-
-
-// =========================================================
-// 2) Subtle twinkling stars (canvas)
-// =========================================================
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-let stars = [];
-let width = 0;
-let height = 0;
-
-function makeStars() {
-  const count = Math.min(140, Math.round((width * height) / 14000));
-  stars = Array.from({ length: count }, () => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    r: Math.random() * 1.2 + 0.3,
-    base: Math.random() * 0.4 + 0.15,
-    speed: Math.random() * 0.012 + 0.004,
-    phase: Math.random() * Math.PI * 2,
-    dy: Math.random() * 0.06 + 0.01,
-  }));
-}
-
-function resize() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const widthChanged = window.innerWidth !== width;
-
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  // Only rebuild stars when the width changes
-  // (phone browsers resize the height when the address bar hides)
-  if (widthChanged || stars.length === 0) makeStars();
-}
-
-function draw(time = 0) {
-  ctx.clearRect(0, 0, width, height);
-
-  for (const s of stars) {
-    const alpha = s.base + Math.sin(time * s.speed + s.phase) * s.base * 0.7;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(196, 170, 255, ${Math.max(alpha, 0.05)})`;
-    ctx.shadowBlur = 6;
-    ctx.shadowColor = 'rgba(167, 139, 250, 0.8)';
-    ctx.fill();
-
-    if (!reduceMotion) {
-      s.y -= s.dy;
-      if (s.y < -2) { s.y = height + 2; s.x = Math.random() * width; }
+    // Short messages are centered, long ones are left-aligned for easy reading
+    if (msgBody.textContent.trim().length < 220) {
+      msgBody.classList.add('is-short');
     }
-  }
 
-  if (!reduceMotion) requestAnimationFrame(draw);
-}
+    let opened = false;
 
-window.addEventListener('resize', () => { resize(); if (reduceMotion) draw(); });
-resize();
-draw();
+    function openMessage() {
+      if (opened) return;
+      opened = true;
+      openBtn.disabled = true;
 
-</script>
+      // Step 1: fade the first section away
+      intro.classList.add('is-leaving');
+
+      // Step 2: after the fade, swap the sections
+      setTimeout(() => {
+        intro.hidden = true;
+        message.hidden = false;
+        message.classList.add('is-entering');
+
+        // Step 3: soft glow around the card + keep it in view on small screens
+        card.classList.add('card--opened');
+        message.focus({preventScroll: true});
+        card.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }, 600);
+    }
+
+    openBtn.addEventListener('click', openMessage);
+
+
+    // =========================================================
+    // 2) Subtle twinkling stars (canvas)
+    // =========================================================
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let stars = [];
+    let width = 0;
+    let height = 0;
+
+    function makeStars() {
+      const count = Math.min(140, Math.round((width * height) / 14000));
+      stars = Array.from({length: count}, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.2 + 0.3,
+        base: Math.random() * 0.4 + 0.15,
+        speed: Math.random() * 0.012 + 0.004,
+        phase: Math.random() * Math.PI * 2,
+        dy: Math.random() * 0.06 + 0.01,
+      }));
+    }
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const widthChanged = window.innerWidth !== width;
+
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Only rebuild stars when the width changes
+      // (phone browsers resize the height when the address bar hides)
+      if (widthChanged || stars.length === 0) makeStars();
+    }
+
+    function draw(time = 0) {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const s of stars) {
+        const alpha = s.base + Math.sin(time * s.speed + s.phase) * s.base * 0.7;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(196, 170, 255, ${Math.max(alpha, 0.05)})`;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(167, 139, 250, 0.8)';
+        ctx.fill();
+
+        if (!reduceMotion) {
+          s.y -= s.dy;
+          if (s.y < -2) {s.y = height + 2; s.x = Math.random() * width;}
+        }
+      }
+
+      if (!reduceMotion) requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {resize(); if (reduceMotion) draw();});
+    resize();
+    draw();
+
+  </script>
 </body>
+
 </html>
